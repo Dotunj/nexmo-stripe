@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Jobs\NewSaleOccurred;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewSaleOccurred;
 
 class WebhookController extends Controller
 {
@@ -12,7 +13,8 @@ class WebhookController extends Controller
         $payload = $request->all();
 
         if($payload['type'] == 'charge.succeeded'){
-            dispatch(new NewSaleOccurred($payload));
+           Notification::route('nexmo', config('services.nexmo.sms_from'))
+                        ->notify(new NewSaleOccurred($payload));
         }
 
         return response('Webhook received');

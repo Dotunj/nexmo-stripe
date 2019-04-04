@@ -10,5 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::post('/stripe/webhook', 'WebhookController@handle');
+Route::get('/', function() {
+    return "Hello";
+});
