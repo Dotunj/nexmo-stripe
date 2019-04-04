@@ -13,7 +13,7 @@ class WebhookController extends Controller
         $payload = $request->all();
 
         if($payload['type'] == 'charge.succeeded'){
-           Notification::route('nexmo', config('services.nexmo.sms_from'))
+           Notification::route('nexmo', config('services.nexmo.sms_to'))
                         ->notify(new NewSaleOccurred($payload));
         }
 
